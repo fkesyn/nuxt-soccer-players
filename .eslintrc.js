@@ -19,5 +19,8 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
+    'vue/no-unused-vars': 'off',
+    'vue/camelcase' : 'off',
+    'camelcase' : 'off'
   }
 }

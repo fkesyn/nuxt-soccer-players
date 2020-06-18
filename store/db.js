@@ -1,30 +1,60 @@
 import axios from 'axios'
+import { SERVICES } from '../services'
 
 export const state = () => ({
   players: [],
+  countries: [],
   headers: [
-    { text: 'Title', value: 'title' },
-    { text: 'Description', value: 'description' }
+    { text: 'Name', value: 'name' },
+    { text: 'Position', value: 'position' }
   ]
 })
 
 export const getters = {
   players: (state) => state.players,
+  countries: (state) => state.countries,
   headers: (state) => state.headers
 }
 
 export const mutations = {
   SET_PLAYERS(state, players) {
     state.players = players
+  },
+  SET_COUNTRIES(state, countries) {
+    state.countries = countries
   }
 }
 
 export const actions = {
-  async getPlayers({ commit }) {
-    const players = await axios.get(
-      'https://node-kesyn.herokuapp.com/api/tutorials'
+  async createPlayer({ commit }, playerData) {
+    const response = await axios.post(
+      `${SERVICES.FOOTBALL_PLAYERS_API}/players`,
+      {
+        name: playerData.name,
+        position: playerData.position,
+        overall: playerData.overall,
+        nationality: playerData.nationality,
+        club: playerData.club
+      }
     )
+    const { data } = response
 
+    if (data) {
+      alert('success!')
+    }
+  },
+  async getPlayers({ commit }) {
+    const players = await axios.get(`${SERVICES.FOOTBALL_PLAYERS_API}/players`)
     commit('SET_PLAYERS', players.data)
+  },
+  async getCountries({ commit }) {
+    const countries = await axios.get(SERVICES.COUNTRIES_LIST)
+    commit('SET_COUNTRIES', countries.data)
+  },
+  async getFlag({ commit }, country) {
+    const flag = await axios.get(
+      `${SERVICES.COUNTRIES_FLAGS}/${country}/shiny/64.png`
+    )
+    return flag
   }
 }
