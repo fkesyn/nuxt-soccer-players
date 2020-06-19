@@ -55,12 +55,12 @@
           },
           {
             title: 'All Players',
-            icon: 'lightbulb',
+            icon: 'account-group',
             to: {name: 'playersList'}
           },
           {
             title: 'Add Player',
-            icon: 'lightbulb',
+            icon: 'account-plus-outline',
             to: {name: 'players-id'}
           }
         ]

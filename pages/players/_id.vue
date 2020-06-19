@@ -1,7 +1,8 @@
 <template>
     <section class="player-details">
         <b-field label="Name">
-            <b-input placeholder="Name"
+            <b-input icon="card-account-details"
+                     placeholder="Name"
                      required
                      type="text"
                      v-model="name"
@@ -11,11 +12,12 @@
         </b-field>
         <b-field label="Position">
             <b-select
-                    :value="position"
                     expanded
+                    icon="badge-account"
                     placeholder="Position"
                     required
-                    v-model="position">
+                    v-model="position"
+            >
                 <option
                         :key="pos"
                         :value="pos"
@@ -28,6 +30,7 @@
             <b-select
                     :value="nationality"
                     expanded
+                    icon="flag-variant"
                     placeholder="Nationality"
                     required
                     v-model="nationality">
@@ -40,7 +43,8 @@
             </b-select>
         </b-field>
         <b-field label="Club">
-            <b-input placeholder="Club"
+            <b-input icon="soccer"
+                     placeholder="Club"
                      type="text"
                      v-model="club"
             >
@@ -58,7 +62,7 @@
                     :disabled="!isValid"
                     :loading="isLoading"
                     @click="submit()"
-                    type="is-success">Create
+                    type="is-success">{{ this.mode ==='create' ? 'Create' : 'Save'}}
             </b-button>
         </div>
 
@@ -85,58 +89,97 @@
           'GK'
         ],
         name: '',
-        position: '',
+        position: null,
         overall: 0,
-        nationality: '',
+        nationality: null,
         club: '',
-        isLoading: false
+        isLoading: false,
+        mode: 'create'
       }
     },
     computed: {
       ...mapGetters({
+        players: 'db/players',
         countries: 'db/countries'
       }),
       isValid () {
         return this.name && this.position && this.nationality && this.overall > 0 && this.overall <= 100;
       }
     },
-    mounted () {
-      this.getCountries()
+    async mounted () {
+      if (this.id) {
+        const player = await this.findPlayer(this.id)
+        if (player) {
+          this.mode = 'edit'
+          this.name = player.name
+          this.position = player.position
+          this.overall = player.overall
+          this.nationality = player.nationality
+          this.club = player.club
+        } else {
+          this.$buefy.notification.open({
+            duration: 5000,
+            message: `The player id doesn't exist`,
+            type: 'is-danger',
+            hasIcon: true
+          })
+        }
+
+      }
+      await this.getCountries()
     },
     methods: {
       ...mapActions({
         getCountries: 'db/getCountries',
-        createPlayer: 'db/createPlayer'
+        createPlayer: 'db/createPlayer',
+        editPlayer: 'db/editPlayer',
+        findPlayer: 'db/findPlayer'
       }),
       clearFields () {
         this.name = ''
-        this.position = ''
+        this.position = null
         this.overall = 0
-        this.nationality = ''
+        this.nationality = null
         this.club = ''
       },
       async submit () {
-        let message = 'Player created!'
+        let message
+        let result
         let type = 'is-success'
+
         if (this.isValid) {
           this.isLoading = true
-          const result = await this.createPlayer({
+          const dataPlayer = {
+            id: this.id,
             name: this.name,
             position: this.position,
             overall: this.overall,
             nationality: this.nationality,
             club: this.club
-          })
+          }
+
+          if (this.mode === 'create') {
+            message = 'Player created!'
+            result = await this.createPlayer(dataPlayer)
+          } else {
+            message = 'Player edited!'
+            result = await this.editPlayer(dataPlayer)
+          }
+
           if (!result) {
             message = 'Something went wrong, please try again later'
             type = 'is-danger'
+          }
+
+          if (result && this.mode === 'create')
+          {
+            this.clearFields()
           }
 
           this.$buefy.notification.open({
             message: message,
             type: type
           })
-          this.clearFields()
           this.isLoading = false
         }
       }
