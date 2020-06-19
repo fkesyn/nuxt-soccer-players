@@ -1,12 +1,15 @@
 import axios from 'axios'
-import { SERVICES } from '../services'
+import {SERVICES} from '../services'
 
 export const state = () => ({
   players: [],
   countries: [],
   headers: [
-    { text: 'Name', value: 'name' },
-    { text: 'Position', value: 'position' }
+    {field: 'name', label: 'Name'},
+    {field: 'position', label: 'Position'},
+    {field: 'nationality', label: 'Nationality'},
+    {field: 'club', label: 'Club'},
+    {field: 'overall', label: 'Overall'}
   ]
 })
 
@@ -17,43 +20,45 @@ export const getters = {
 }
 
 export const mutations = {
-  SET_PLAYERS(state, players) {
+  SET_PLAYERS (state, players) {
     state.players = players
   },
-  SET_COUNTRIES(state, countries) {
+  SET_COUNTRIES (state, countries) {
     state.countries = countries
   }
 }
 
 export const actions = {
-  async createPlayer({ commit }, playerData) {
+  async createPlayer ({commit}, playerData) {
     const response = await axios.post(
-      `${SERVICES.FOOTBALL_PLAYERS_API}/players`,
-      {
-        name: playerData.name,
-        position: playerData.position,
-        overall: playerData.overall,
-        nationality: playerData.nationality,
-        club: playerData.club
-      }
-    )
-    const { data } = response
-
-    if (data) {
-      alert('success!')
+    `${SERVICES.FOOTBALL_PLAYERS_API}/players`,
+    {
+      name: playerData.name,
+      position: playerData.position,
+      overall: playerData.overall,
+      nationality: playerData.nationality,
+      club: playerData.club
     }
+    )
+    
+    const {data} = response
+    
+    if (data._id) {
+      return true
+    }
+    return false
   },
-  async getPlayers({ commit }) {
+  async getPlayers ({commit}) {
     const players = await axios.get(`${SERVICES.FOOTBALL_PLAYERS_API}/players`)
     commit('SET_PLAYERS', players.data)
   },
-  async getCountries({ commit }) {
+  async getCountries ({commit}) {
     const countries = await axios.get(SERVICES.COUNTRIES_LIST)
     commit('SET_COUNTRIES', countries.data)
   },
-  async getFlag({ commit }, country) {
+  async getFlag ({commit}, country) {
     const flag = await axios.get(
-      `${SERVICES.COUNTRIES_FLAGS}/${country}/shiny/64.png`
+    `${SERVICES.COUNTRIES_FLAGS}/${country}/shiny/64.png`
     )
     return flag
   }

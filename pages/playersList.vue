@@ -1,63 +1,53 @@
 <template>
-  <v-container id="players-list">
-    <v-layout row wrap>
-      <v-flex lg6 sm6>
-        <v-text-field
-          v-model="search"
-          append-icon="search"
-          label="Solo"
-          placeholder="Search for Player"
-          solo
-          class="search"
-        />
-      </v-flex>
-      <v-flex lg2 sm2>
-        <v-btn class="filter-btn" color="black" dark>
-          Filter
-        </v-btn>
-      </v-flex>
-    </v-layout>
-    <v-layout row wrap>
-      <v-flex v-for="player in filterPlayers" :key="player.id" xs12 sm6 md6 lg3>
-        <player-card
-          :name="player.name"
-          :position="player.position"
-          country="pt"
-        ></player-card>
-      </v-flex>
-    </v-layout>
-  </v-container>
+    <div>
+        <nuxt-link to="/players">Players</nuxt-link>
+        <b-table :columns="headers"
+                 :data="players"
+                 :loading="isLoading"
+                 :selected.sync="selected"
+                 focusable>
+            <template slot="empty">
+                <section class="section" v-if="!isLoading">
+                    <div class="content has-text-grey has-text-centered">
+                        <p>
+                            <b-icon
+                                    icon="emoticon-sad"
+                                    size="is-large">
+                            </b-icon>
+                        </p>
+                        <p>Nothing here.</p>
+                    </div>
+                </section>
+            </template>
+        </b-table>
+    </div>
 </template>
-
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import PlayerCard from '../components/PlayerCard'
-export default {
-  name: 'PlayersView',
-  components: { PlayerCard },
-  data() {
-    return {
-      search: ''
-    }
-  },
-  computed: {
-    ...mapGetters({
-      players: 'db/players',
-      headers: 'db/headers'
-    }),
-    filterPlayers() {
-      return Object.values(this.players).filter((player) => {
-        return player.name.toLowerCase().includes(this.search.toLowerCase())
+  import {mapActions, mapGetters} from 'vuex'
+
+  export default {
+    name: 'PlayersView',
+    data () {
+      return {
+        selected: null,
+        isLoading: false
+      }
+    },
+    computed: {
+      ...mapGetters({
+        players: 'db/players',
+        headers: 'db/headers'
+      })
+    },
+    async mounted () {
+      this.isLoading = true;
+      await this.getPlayers()
+      this.isLoading = false;
+    },
+    methods: {
+      ...mapActions({
+        getPlayers: 'db/getPlayers'
       })
     }
-  },
-  mounted() {
-    this.getPlayers()
-  },
-  methods: {
-    ...mapActions({
-      getPlayers: 'db/getPlayers'
-    })
   }
-}
 </script>
