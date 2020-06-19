@@ -69,13 +69,27 @@ export const actions = {
     )
     
     const {data} = response
-   
+    
     if (data.success) {
       return true
     }
     return false
   },
-  async findPlayer ({commit, state}, id) {
+  async deletePlayer ({commit, state}, id) {
+    try {
+      const {data} = await axios.delete(`${SERVICES.FOOTBALL_PLAYERS_API}/${id}`)
+      
+      if (data.success) {
+        const newArray = state.players.filter(({_id}) => _id !== id)
+        commit('SET_PLAYERS', newArray)
+        
+        return true
+      }
+    } catch {
+    }
+    return false
+  },
+  async findPlayer ({state}, id) {
     let player = state.players.find(({_id}) => _id === id)
     
     if (!player) {

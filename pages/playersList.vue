@@ -1,9 +1,9 @@
 <template>
     <div>
-        <b-table class="players-list"
-                 :data = "players"
+        <b-table :data="players"
                  :loading="isLoading"
-                 >
+                 class="players-list"
+        >
             <template slot-scope="props">
                 <b-table-column field="name" label="Name">
                     {{ props.row.name }}
@@ -18,21 +18,17 @@
                     {{ props.row.club }}
                 </b-table-column>
                 <b-table-column field="actions" label="Actions">
-                    <div class="columns">
-                        <div class="column">
-                            <b-button tag="router-link"
-                                      :to="{ name: 'players-id', params: { id: props.row._id }}"
-                                      icon-left="comment-edit"
-                                      type="is-link">
-                                Edit
-                            </b-button>
-                        </div>
-                        <div class="column">
-                            <b-button type="is-danger"
-                                      icon-left="delete">
-                                Delete
-                            </b-button>
-                        </div>
+                    <div class="buttons">
+                        <b-button :to="{ name: 'players-id', params: { id: props.row._id }}"
+                                  icon-left="comment-edit"
+                                  tag="router-link"
+                                  type="is-link">
+                            Edit
+                        </b-button>
+                        <b-button @click="openDeleteDialog(props.row._id)"
+                                  icon-left="delete" type="is-danger">
+                            Delete
+                        </b-button>
                     </div>
                 </b-table-column>
             </template>
@@ -76,8 +72,34 @@
     },
     methods: {
       ...mapActions({
-        getPlayers: 'db/getPlayers'
-      })
+        getPlayers: 'db/getPlayers',
+        deletePlayer: 'db/deletePlayer'
+      }),
+      openDeleteDialog(id) {
+        this.$buefy.dialog.confirm({
+          title: 'Deleting player',
+          message: 'Are you sure you want to <b>delete</b> this player? This action cannot be undone.',
+          confirmText: 'Delete Player',
+          type: 'is-danger',
+          hasIcon: true,
+          onConfirm: () => this.delete(id)
+        })
+      },
+      async delete (id) {
+        let message = 'Player Deleted'
+        let type = 'is-success'
+        const result = await this.deletePlayer(id)
+
+        if (!result) {
+          message = 'Something went wrong, please try again later'
+          type = 'is-danger'
+        }
+
+        this.$buefy.notification.open({
+          message: message,
+          type: type
+        })
+      }
     }
   }
 </script>
