@@ -3,8 +3,7 @@
         <b-table class="players-list"
                  :data = "players"
                  :loading="isLoading"
-                 :selected.sync="selected"
-                 focusable>
+                 >
             <template slot-scope="props">
                 <b-table-column field="name" label="Name">
                     {{ props.row.name }}
@@ -61,7 +60,6 @@
     name: 'PlayersView',
     data () {
       return {
-        selected: null,
         isLoading: false
       }
     },
