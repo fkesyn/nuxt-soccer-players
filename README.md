@@ -1,4 +1,12 @@
-# teste
+# football-players-editor
+
+````
+"All players" - List all players in the database
+You can edit and delete each player
+
+"Create player" - You can create a new player and save him in the database
+
+```
 
 ## Build Setup
 
