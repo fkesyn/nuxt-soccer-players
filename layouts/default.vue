@@ -94,7 +94,7 @@
   export default {
     data () {
       return {
-        selectedLang: null
+        selectedLang: this.$cookies.get('cookie-locale')
       }
     },
     computed: {
