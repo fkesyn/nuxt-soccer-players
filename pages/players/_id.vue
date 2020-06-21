@@ -1,8 +1,8 @@
 <template>
     <section class="player-details">
-        <b-field label="Name">
+        <b-field :label="$t('forms.name')">
             <b-input icon="card-account-details"
-                     placeholder="Name"
+                     :placeholder="$t('forms.name')"
                      required
                      type="text"
                      v-model="name"
@@ -10,11 +10,11 @@
             >
             </b-input>
         </b-field>
-        <b-field label="Position">
+        <b-field :label="$t('forms.position')">
             <b-select
                     expanded
                     icon="badge-account"
-                    placeholder="Position"
+                    :placeholder="$t('forms.position')"
                     required
                     v-model="position"
             >
@@ -26,12 +26,12 @@
                 </option>
             </b-select>
         </b-field>
-        <b-field label="Nationality">
+        <b-field :label="$t('forms.nationality')">
             <b-select
                     :value="nationality"
                     expanded
                     icon="flag-variant"
-                    placeholder="Nationality"
+                    :placeholder="$t('forms.nationality')"
                     required
                     v-model="nationality">
                 <option
@@ -42,19 +42,19 @@
                 </option>
             </b-select>
         </b-field>
-        <b-field label="Club">
+        <b-field :label="$t('forms.club')">
             <b-input icon="soccer"
-                     placeholder="Club"
+                     :placeholder="$t('forms.club')"
                      type="text"
                      v-model="club"
             >
             </b-input>
         </b-field>
-        <b-field label="Overall">
+        <b-field :label="$t('forms.overall')">
             <b-numberinput
                     max="100"
                     min="1"
-                    placeholder="Overall"
+                    :placeholder="$t('forms.overall')"
                     v-model="overall"></b-numberinput>
         </b-field>
         <div class="buttons">
@@ -62,7 +62,7 @@
                     :disabled="!isValid"
                     :loading="isLoading"
                     @click="submit()"
-                    type="is-success">{{ this.mode ==='create' ? 'Create' : 'Save'}}
+                    type="is-success">{{ this.mode ==='create' ? this.$t('links.create') : this.$t('links.save')}}
             </b-button>
         </div>
 

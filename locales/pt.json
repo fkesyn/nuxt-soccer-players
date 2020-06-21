@@ -1,0 +1,18 @@
+{
+  "links": {
+    "allPlayers" : "Todos os jogadores",
+    "addPlayer": "Adicionar jogador",
+    "edit": "Editar",
+    "delete": "Apagar",
+    "create" : "Criar",
+    "save" : "Guardar"
+  },
+  "forms": {
+    "name": "Nome",
+    "position": "Posição",
+    "nationality": "Nacionalidade",
+    "club": "Clube",
+    "overall": "Valor",
+    "language": "Língua"
+  }
+}

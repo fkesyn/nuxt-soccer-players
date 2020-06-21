@@ -5,16 +5,16 @@
                  class="players-list"
         >
             <template slot-scope="props">
-                <b-table-column field="name" label="Name">
+                <b-table-column field="name" :label="$t('forms.name')">
                     {{ props.row.name }}
                 </b-table-column>
-                <b-table-column field="position" label="Position">
+                <b-table-column field="position" :label="$t('forms.position')">
                     {{ props.row.position }}
                 </b-table-column>
-                <b-table-column field="nationality" label="Nationality">
+                <b-table-column field="nationality" :label="$t('forms.nationality')">
                     {{ props.row.nationality }}
                 </b-table-column>
-                <b-table-column field="club" label="Club">
+                <b-table-column field="club" :label="$t('forms.club')">
                     {{ props.row.club }}
                 </b-table-column>
                 <b-table-column field="actions" label="Actions">
@@ -23,11 +23,11 @@
                                   icon-left="comment-edit"
                                   tag="router-link"
                                   type="is-link">
-                            Edit
+                            {{ $t('links.edit') }}
                         </b-button>
                         <b-button @click="openDeleteDialog(props.row._id)"
                                   icon-left="delete" type="is-danger">
-                            Delete
+                            {{ $t('links.delete') }}
                         </b-button>
                     </div>
                 </b-table-column>

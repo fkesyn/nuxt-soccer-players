@@ -1,0 +1,18 @@
+{
+  "links": {
+    "allPlayers" : "All Players",
+    "addPlayer": "Add Player",
+    "edit": "Edit",
+    "delete": "Delete",
+    "create" : "Create",
+    "save" : "Save"
+  },
+  "forms": {
+    "name": "Name",
+    "position": "Position",
+    "nationality": "Nationality",
+    "club": "Club",
+    "overall": "Overall",
+    "language": "Language"
+  }
+}
