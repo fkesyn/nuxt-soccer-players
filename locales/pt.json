@@ -14,5 +14,15 @@
     "club": "Clube",
     "overall": "Valor",
     "language": "Língua"
+  },
+  "validation": {
+    "deletingPlayer": "Apagando jogador",
+    "deletePlayer": "Apagar jogador",
+    "deleteWarningMessage": "Tem a certeza que quer <b>apagar</b> este jogador? Esta acção não é irreversível.",
+    "playerDeleted": "Jogador Apagado",
+    "somethingWrong": "Algo correu mal, por favor tente mais tarde.",
+    "playerDontExist": "O id do jogador não existe",
+    "playerCreated": "Jogador criado!",
+    "playerEdited": "Jogador editado!"
   }
 }

@@ -1,53 +1,49 @@
 <template>
-  <section class="section">
-    <div class="columns is-mobile">
-      <card
-        title="Free"
-        icon="github"
-      >
-        Open source on <a href="https://github.com/buefy/buefy">
-          GitHub
-        </a>
-      </card>
-
-      <card
-        title="Responsive"
-        icon="cellphone-link"
-      >
-        <b class="has-text-grey">
-          Every
-        </b> component is responsive
-      </card>
-
-      <card
-        title="Modern"
-        icon="alert-decagram"
-      >
-        Built with <a href="https://vuejs.org/">
-          Vue.js
-        </a> and <a href="http://bulma.io/">
-          Bulma
-        </a>
-      </card>
-
-      <card
-        title="Lightweight"
-        icon="arrange-bring-to-front"
-      >
-        No other internal dependency
-      </card>
-    </div>
-  </section>
+    <b-carousel :indicator-inside="false">
+        <b-carousel-item v-for="(item,i) in items" :key="i" :src="item.src">
+            <span class="image">
+              <img :src="item.src">
+            </span>
+        </b-carousel-item>
+        <template slot="indicators" slot-scope="props">
+            <span class="al image">
+                <img :src="props.i" :title="props.i">
+            </span>
+        </template>
+    </b-carousel>
 </template>
 
 <script>
-import Card from '~/components/Card'
+  export default {
+    data () {
+      return {
+        items: [
+          {
+            src: '/images/messi.jpg'
+          },
+          {
+            src: '/images/aguero.jpg'
+          },
+          {
+            src: '/images/salah.jpg'
+          },
 
-export default {
-  name: 'HomePage',
-
-  components: {
-    Card
+        ]
+      }
+    },
+    methods: {
+      getImgUrl(value) {
+        return `https://picsum.photos/id/43${value}/1230/500`
+      }
+    }
   }
-}
 </script>
+
+<style>
+    .is-active .al img {
+        filter: grayscale(0%);
+    }
+    .al img {
+        filter: grayscale(100%);
+    }
+</style>

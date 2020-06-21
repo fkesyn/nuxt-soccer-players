@@ -1,43 +1,5 @@
 <template>
     <div>
-        <!--<nav-->
-        <!--aria-label="main navigation"-->
-        <!--class="navbar header has-shadow is-primary"-->
-        <!--role="navigation"-->
-        <!--&gt;-->
-        <!--<div class="navbar-brand">-->
-        <!--<a-->
-        <!--class="navbar-item"-->
-        <!--href="/"-->
-        <!--&gt;-->
-        <!--Football Players Editor-->
-        <!--</a>-->
-        <!--</div>-->
-        <!--<div class="nav-bar-menu">-->
-        <!--<div class="nav-bar-item">-->
-        <!--<b-select-->
-        <!--:value="selectedLang"-->
-        <!--expanded-->
-        <!--icon="flag-variant"-->
-        <!--:placeholder="$t('forms.language')"-->
-        <!--v-model="selectedLang"-->
-        <!--@input="changeLang()"-->
-        <!--&gt;-->
-        <!--<option-->
-        <!--:key="lang"-->
-        <!--:value="lang"-->
-        <!--v-for="lang in getLangs()">-->
-        <!--{{ lang }}-->
-        <!--</option>-->
-        <!--</b-select>-->
-
-
-        <!--</div>-->
-        <!--</div>-->
-
-
-        <!--</nav>-->
-
         <b-navbar class="has-shadow is-primary">
             <template slot="brand">
                 <b-navbar-item :to="{ path: '/' }" tag="router-link">

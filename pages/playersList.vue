@@ -77,21 +77,21 @@
       }),
       openDeleteDialog(id) {
         this.$buefy.dialog.confirm({
-          title: 'Deleting player',
-          message: 'Are you sure you want to <b>delete</b> this player? This action cannot be undone.',
-          confirmText: 'Delete Player',
+          title: this.$t('validation.deletingPlayer'),
+          message: this.$t('validation.deleteWarningMessage'),
+          confirmText: this.$t('validation.deletePlayer'),
           type: 'is-danger',
           hasIcon: true,
           onConfirm: () => this.delete(id)
         })
       },
       async delete (id) {
-        let message = 'Player Deleted'
+        let message = this.$t('validation.playerDeleted')
         let type = 'is-success'
         const result = await this.deletePlayer(id)
 
         if (!result) {
-          message = 'Something went wrong, please try again later'
+          message = this.$t('validation.somethingWrong')
           type = 'is-danger'
         }
 

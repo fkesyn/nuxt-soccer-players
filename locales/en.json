@@ -14,5 +14,15 @@
     "club": "Club",
     "overall": "Overall",
     "language": "Language"
+  },
+  "validation": {
+    "deletingPlayer": "Deleting Player",
+    "deletePlayer": "Delete Player",
+    "deleteWarningMessage": "Are you sure you want to <b>delete</b> this player? This action cannot be undone.",
+    "playerDeleted": "Player Deleted",
+    "somethingWrong": "Something went wrong, please try again later",
+    "playerDontExist": "The player id doesn't exist",
+    "playerCreated": "Player created!",
+    "playerEdited": "Player edited!"
   }
 }

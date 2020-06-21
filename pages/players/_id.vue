@@ -119,7 +119,7 @@
         } else {
           this.$buefy.notification.open({
             duration: 5000,
-            message: `The player id doesn't exist`,
+            message: this.$t('validation.playerDontExist'),
             type: 'is-danger',
             hasIcon: true
           })
@@ -159,15 +159,15 @@
           }
 
           if (this.mode === 'create') {
-            message = 'Player created!'
+            message = this.$t('validation.playerCreated')
             result = await this.createPlayer(dataPlayer)
           } else {
-            message = 'Player edited!'
+            message = this.$t('validation.playerEdited')
             result = await this.editPlayer(dataPlayer)
           }
 
           if (!result) {
-            message = 'Something went wrong, please try again later'
+            message = this.$t('somethingWrong')
             type = 'is-danger'
           }
 
