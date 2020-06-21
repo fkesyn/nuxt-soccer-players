@@ -8,6 +8,7 @@
     "save" : "Guardar"
   },
   "forms": {
+    "welcome": "Bem-vindo ao editor de jogadores de futebol!",
     "name": "Nome",
     "position": "Posição",
     "nationality": "Nacionalidade",
