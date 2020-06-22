@@ -8,8 +8,7 @@ export const state = () => ({
 
 export const getters = {
   players: (state) => state.players,
-  countries: (state) => state.countries,
-  headers: (state) => state.headers
+  countries: (state) => state.countries
 }
 
 export const mutations = {
