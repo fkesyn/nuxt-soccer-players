@@ -1,20 +1,27 @@
 <template>
-    <div>
-        <b-table :data="players"
+    <section>
+        <b-input class="search"
+                 icon="account-search"
+                 :placeholder="$t('forms.search')"
+                 type="search"
+                 v-model="search">
+        </b-input>
+
+        <b-table :data="filterPlayers()"
                  :loading="isLoading"
                  class="players-list"
         >
             <template slot-scope="props">
-                <b-table-column field="name" :label="$t('forms.name')">
+                <b-table-column :label="$t('forms.name')" field="name">
                     {{ props.row.name }}
                 </b-table-column>
-                <b-table-column field="position" :label="$t('forms.position')">
+                <b-table-column :label="$t('forms.position')" field="position">
                     {{ props.row.position }}
                 </b-table-column>
-                <b-table-column field="nationality" :label="$t('forms.nationality')">
+                <b-table-column :label="$t('forms.nationality')" field="nationality">
                     {{ props.row.nationality }}
                 </b-table-column>
-                <b-table-column field="club" :label="$t('forms.club')">
+                <b-table-column :label="$t('forms.club')" field="club">
                     {{ props.row.club }}
                 </b-table-column>
                 <b-table-column field="actions" label="Actions">
@@ -42,12 +49,12 @@
                                     size="is-large">
                             </b-icon>
                         </p>
-                        <p>Nothing here.</p>
+                        <p>{{ $t('validation.nothing')}}</p>
                     </div>
                 </section>
             </template>
         </b-table>
-    </div>
+    </section>
 </template>
 <script>
   import {mapActions, mapGetters} from 'vuex'
@@ -56,6 +63,7 @@
     name: 'PlayersView',
     data () {
       return {
+        search: '',
         isLoading: false
       }
     },
@@ -75,7 +83,12 @@
         getPlayers: 'db/getPlayers',
         deletePlayer: 'db/deletePlayer'
       }),
-      openDeleteDialog(id) {
+      filterPlayers () {
+        return Object.values(this.players).filter(player => {
+          return player.name.toLowerCase().includes(this.search.toLowerCase())
+        })
+      },
+      openDeleteDialog (id) {
         this.$buefy.dialog.confirm({
           title: this.$t('validation.deletingPlayer'),
           message: this.$t('validation.deleteWarningMessage'),
@@ -104,6 +117,11 @@
   }
 </script>
 <style>
+    .search {
+        width: 80%;
+        margin: 20px auto 1px;
+    }
+
     .players-list {
         padding: 30px;
     }

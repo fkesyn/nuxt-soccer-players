@@ -14,7 +14,8 @@
     "nationality": "Nacionalidade",
     "club": "Clube",
     "overall": "Valor",
-    "language": "Língua"
+    "language": "Língua",
+    "search": "Procurar..."
   },
   "validation": {
     "deletingPlayer": "Apagando jogador",
@@ -24,6 +25,7 @@
     "somethingWrong": "Algo correu mal, por favor tente mais tarde.",
     "playerDontExist": "O id do jogador não existe",
     "playerCreated": "Jogador criado!",
-    "playerEdited": "Jogador editado!"
+    "playerEdited": "Jogador editado!",
+    "nothing": "Nada a apresentar."
   }
 }

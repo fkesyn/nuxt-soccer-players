@@ -3,14 +3,7 @@ import {SERVICES} from '../services'
 
 export const state = () => ({
   players: [],
-  countries: [],
-  headers: [
-    {field: 'name', label: 'Name'},
-    {field: 'position', label: 'Position'},
-    {field: 'nationality', label: 'Nationality'},
-    {field: 'club', label: 'Club'},
-    {field: 'overall', label: 'Overall'}
-  ]
+  countries: []
 })
 
 export const getters = {
@@ -103,11 +96,5 @@ export const actions = {
       }
     }
     return player
-  },
-  async getFlag ({commit}, country) {
-    const flag = await axios.get(
-    `${SERVICES.COUNTRIES_FLAGS}/${country}/shiny/64.png`
-    )
-    return flag
   }
 }

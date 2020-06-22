@@ -14,7 +14,8 @@
     "nationality": "Nationality",
     "club": "Club",
     "overall": "Overall",
-    "language": "Language"
+    "language": "Language",
+    "search": "Search..."
   },
   "validation": {
     "deletingPlayer": "Deleting Player",
@@ -24,6 +25,7 @@
     "somethingWrong": "Something went wrong, please try again later",
     "playerDontExist": "The player id doesn't exist",
     "playerCreated": "Player created!",
-    "playerEdited": "Player edited!"
+    "playerEdited": "Player edited!",
+    "nothing": "Nothing here."
   }
 }

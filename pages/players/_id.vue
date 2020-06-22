@@ -65,7 +65,6 @@
                     type="is-success">{{ this.mode ==='create' ? this.$t('links.create') : this.$t('links.save')}}
             </b-button>
         </div>
-
     </section>
 </template>
 <script>
